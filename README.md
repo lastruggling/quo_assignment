@@ -70,10 +70,21 @@
 - Repositoryそうは、jOOQを利用してるためUTは省略する
 - DBとの連携はTestContainerなどが必要な時点で、UTではなくIntegration Testの領域のため省略する
 
+9. Flywayの実質運用知見がない
+- Flywayは今回の課題で初めて経験
+- flywayBaselineを利用することがあるらしいが、率直に実サービスではどの使い方か分からない
+- 課題のことで、初期起動を想定し、READMEの実行方法にてflywayMigrateコマンド追加
+- build.gradleにて、Build時一括Cleanさせるのもできるが、現実ではリスキーなため利用しない
+- ただし、jOOQはDBを参考してるため、Buildするたびに実行されるようにする
+  - 実サービスの場合、Composite build利用でビルド時間を短くする可能性あり
+
 ## 実行方法
 ```bash
 # DB起動
 $ docker compose up -d
+
+# 初めて立ち上げる際は、DBのMigrationが必要
+$ ./gradlew flywayMigrate
 
 # Application起動
 # 1. IntelliJから起動
