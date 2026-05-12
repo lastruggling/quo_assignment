@@ -1,0 +1,6 @@
+spring:
+  application:
+    name: quo
+  flyway:
+    clean-disabled: false
+    locations: classpath:db/migration
